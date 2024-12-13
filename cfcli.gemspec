@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.summary = %q{Script facilitating easy updating of cloudflare zones and cloudflare options}
   spec.description = %q{Gem facilitating easy updating of cloudflare hosted zones/domains/options.}
   spec.homepage = 'https://iotaspencer.me/projects/cfcli'
-  spec.license = 'MIT'
+  spec.license = 'GNU GPL v3'
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
   # to allow pushing to a single host or delete this section to allow pushing to any host.

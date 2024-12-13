@@ -1,0 +1,1 @@
+This folder contains the opinionated output formats for cfcli, all folders have the same structure, 

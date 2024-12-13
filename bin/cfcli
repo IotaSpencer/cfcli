@@ -1,0 +1,7 @@
+#! /usr/bin/ruby
+
+require 'highline'
+require 'terminal-table'
+require 'cfcli/runner'
+
+CFCLI::App::Runner.new(ARGV).execute!

@@ -5,11 +5,13 @@ module CFCLI
     module Table
       module Endpoints
         require 'cfcli/opinionated_formats/table/zones'
+        require 'cfcli/opinionated_formats/table/ips'
       end
     end
     module YML
       module Endpoints
         require 'cfcli/opinionated_formats/yaml/zones'
+        require 'cfcli/opinionated_formats/yaml/ips'
       end
     end
     module Pipe
@@ -55,6 +57,11 @@ module CFCLI
         puts endpoint_class.new(results: results).send
 
       end
+      # Outputs the results of the given endpoint in a pipe format.
+      #
+      # @param results [Object] the results to be processed.
+      # @param endpoint [String] the endpoint URI.
+      # @param kwargs [Hash] additional options for configuration.
       def self.output_endpoint_pipe(results, endpoint, **kwargs)
         inst = new('pipe', results, endpoint, **kwargs)
         endpoint_uri = inst.instance_variable_get(:@endpoint)

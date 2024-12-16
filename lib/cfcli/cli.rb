@@ -34,6 +34,7 @@ module CFCLI
       wrap_help_text :verbatim
 
       flag ["output", "-o"], :arg_name => "FORMAT", :multiple => false, :desc => "output format", :default_value => "table", :must_match => /^([yY][aA][mM][lL]|[tT][aA][bB][lL][eE]|[pP][iI][pP][eE])$/
+
       desc 'manage zone related options/records'
       command "zones" do |zones_command|
         zones_command.desc "List all zones"
@@ -93,7 +94,7 @@ module CFCLI
                                       required: true
             list_command.action do |global_options, options, args|
               response = CloudParty::Nodes::DNSRecords.new.list(options[:zone])
-              to_format(global_options[:format], response.results, endpoint: "GET:/zones/:ZONEID/dns_records/")
+              to_format(global_options[:output], response.results, endpoint: "GET:/zones/:ZONEID/dns_records/")
             end
           end
           dns_records.desc 'add record'
@@ -119,20 +120,11 @@ module CFCLI
       end
       desc 'list ips'
       command 'ips' do |ips_command|
-        ips_command.action do |action|
+        ips_command.action do |global_options, options, args|
           response = CloudParty::Nodes::IPs.new.list()
           results = response.results.first
-          ipv4_results = results.ipv4_cidrs
-          ipv6_results = results.ipv6_cidrs
-
+          to_format(global_options[:output].first, results, endpoint: "GET|IPs")
           
-          table = Terminal::Table.new do |t|
-            t.headings = ["CIDR", "IP/prefix"]
-            t.add_row ["IPv4", ipv4_results.join("\n")]
-            t.add_separator
-            t.add_row ["IPv6", ipv6_results.join("\n")]
-          end
-          puts table
         end
       end
     end

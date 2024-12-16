@@ -6,3 +6,16 @@ This folder contains the opinionated output formats for cfcli, all folders have 
 
 #### Table
 
+Completed Table Formats:
+- `zones - list`
+- `ips`
+
+#### YAML
+
+Completed YAML Formats:
+- `zones - list`
+- `ips`
+
+#### Pipe
+
+Completed Pipe Formats:

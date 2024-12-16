@@ -1,4 +1,4 @@
-## --format formats documentation
+## --output formats documentation
 
 #### Table
 

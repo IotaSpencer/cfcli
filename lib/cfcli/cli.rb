@@ -33,7 +33,7 @@ module CFCLI
       synopsis_format :compact
       wrap_help_text :verbatim
 
-      flag "--format", arg_name: "FORMAT", desc: "output format", default_value: "table", must_match: /^([yY][aA][mM][lL]|[tT][aA][bB][lL][eE]|[pP][iI][pP][eE])$/
+      flag ["output", "-o"], :arg_name => "FORMAT", :multiple => false, :desc => "output format", :default_value => "table", :must_match => /^([yY][aA][mM][lL]|[tT][aA][bB][lL][eE]|[pP][iI][pP][eE])$/
       desc 'manage zone related options/records'
       command "zones" do |zones_command|
         zones_command.desc "List all zones"
@@ -41,22 +41,10 @@ module CFCLI
           c.action do |global_options, options, args|
             response = CloudParty::Nodes::Zones.new.list_zones
             results = response.results
-            to_format global_options[:format], results
-
-            table = ::Terminal::Table.new do |t|
-              t.headings = ["Name", "ID", "Status", "Paused", "Type"]
-              t.rows = results.map do |zone|
-                [
-                  zone.name,
-                  zone.id,
-                  zone.status,
-                  zone.paused,
-                  zone.type,
-                ]
-              end
-            end
-            puts table
+            puts global_options[:output].first
+            to_format(global_options[:output].first, results, endpoint: "GET|Zones::List")
           end
+            
         end
         zones_command.default_command :list
 
@@ -105,6 +93,7 @@ module CFCLI
                                       required: true
             list_command.action do |global_options, options, args|
               response = CloudParty::Nodes::DNSRecords.new.list(options[:zone])
+              to_format(global_options[:format], response.results, endpoint: "GET:/zones/:ZONEID/dns_records/")
             end
           end
           dns_records.desc 'add record'

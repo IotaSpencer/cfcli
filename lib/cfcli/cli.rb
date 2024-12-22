@@ -113,6 +113,14 @@ module CFCLI
             update_command.flag 'zone', desc: "The zone to update a record in",
                                        required: true
           end
+
+          dns_records.desc 'batch records'
+          dns_records.command 'batch' do |batch_command|
+            
+            batch_command.action do |action|
+
+            end
+          end
           dns_records.default_desc "help"
           dns_records.action do |global_options, options, args|
           end

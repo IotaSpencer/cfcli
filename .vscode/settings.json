@@ -1,5 +1,8 @@
 {
   "cSpell.words": [
     "kwargs"
+  ],
+  "conventionalCommits.scopes": [
+    "all"
   ]
 }

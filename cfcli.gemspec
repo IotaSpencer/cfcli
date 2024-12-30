@@ -35,16 +35,16 @@ Gem::Specification.new do |spec|
   spec.executables << 'cfcli'
   spec.require_paths = ['lib']
 
-  spec.add_runtime_dependency 'configparser', '~> 0.1.7'
-  spec.add_runtime_dependency 'cloud_party', '~> 0.1.13'
-  spec.add_runtime_dependency 'highline', '~> 3.0.1'
+  spec.add_runtime_dependency 'configparser', '~> 0.1'
+  spec.add_runtime_dependency 'cloud_party', '~> 0.1'
+  spec.add_runtime_dependency 'highline', '~> 3.0'
   spec.add_runtime_dependency 'slugity', '~> 1.1'
-  spec.add_runtime_dependency 'gli', '~> 2.22.0'
-  spec.add_runtime_dependency 'terminal-table', '~> 3.0.2'
-  spec.add_runtime_dependency 'os', '~> 1.1.4'
-  spec.add_runtime_dependency 'paint', '~> 2.3.0'
-  spec.add_runtime_dependency 'rake', '~> 13.1.0'
-  spec.add_development_dependency 'bundler', '~> 2.5.22'
+  spec.add_runtime_dependency 'gli', '~> 2.22'
+  spec.add_runtime_dependency 'terminal-table', '~> 3.0'
+  spec.add_runtime_dependency 'os', '~> 1.1'
+  spec.add_runtime_dependency 'paint', '~> 2.3'
+  spec.add_runtime_dependency 'rake', '~> 13.1'
+  spec.add_development_dependency 'bundler', '~> 2.6'
   spec.post_install_message = [
       "Thanks for installing 'cfcli', It means a lot to me."
   ].join("\n")

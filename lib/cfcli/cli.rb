@@ -32,7 +32,14 @@ module CFCLI
       arguments :strict
       synopsis_format :compact
       wrap_help_text :verbatim
-
+      accept(Hash) do |value|
+        result = {}
+        value.split(/,/).each do |pair|
+          k,v = pair.split(/:/)
+          result[k] = v
+        end
+        result
+      end
       flag ["output", "-o"], :arg_name => "FORMAT", :multiple => false, :desc => "output format", :default_value => "table", :must_match => /^([yY][aA][mM][lL]|[tT][aA][bB][lL][eE]|[pP][iI][pP][eE])$/
 
       desc 'manage zone related options/records'
@@ -89,11 +96,22 @@ module CFCLI
             end
           end
           dns_records.desc "list records"
+          dns_records.long_desc <<-DESC
+          List DNS records for a zone
+
+          Use the --filter flag to filter records by query. There is no default filter.
+          See https://developers.cloudflare.com/api/operations/dns-records-for-a-zone-list-dns-records#Query-Parameters
+          for more information. 
+          DESC
           dns_records.command "list" do |list_command|
-            list_command.flag 'zone', desc: "The zone to list records for",
-                                      required: true
+            list_command.flag 'filter', desc: "Filter records by query",
+                                      required: false,
+                                      arg_name: 'QUERY',
+                                      multiple: true,
+                                      type: Hash
             list_command.action do |global_options, options, args|
-              response = CloudParty::Nodes::DNSRecords.new.list(options[:zone])
+              queries = options[:filter].inject(:merge)
+              response = CloudParty::Nodes::DNSRecords.new.list(options[:zone], queries)
               to_format(global_options[:output], response.results, endpoint: "GET:/zones/:ZONEID/dns_records/")
             end
           end
